@@ -6,4 +6,5 @@ import de.zabuza.rewiki.exceptions.UnexpectedIOException;
 public interface IWikiTask {
 	public void executeCommand() throws UnexpectedIOException;
 
+	public void pushToWiki(final WikiHub wiki) throws UnexpectedIOException;
 }

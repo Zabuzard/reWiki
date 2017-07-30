@@ -41,17 +41,8 @@ public final class WikiHub {
 	 *            The name of the article to get
 	 * @return The article with the given name
 	 */
-	private Article getArticle(final String name) {
+	public Article getArticle(final String name) {
 		return this.mWikiBot.getArticle(name);
-	}
-
-	/**
-	 * Login to the Wiki.
-	 */
-	private void login() {
-		if (!this.mWikiBot.isLoggedIn()) {
-			this.mWikiBot.login(this.mUsername, this.mPassword);
-		}
 	}
 
 	/**
@@ -61,8 +52,18 @@ public final class WikiHub {
 	 * @param article
 	 *            Article to save
 	 */
-	private void saveArticle(final Article article) {
+	public void saveArticle(final Article article) {
 		login();
+		article.setEditSummary("Automatisiertes Update (Verwendung der [[Skripte]])");
 		article.save();
+	}
+
+	/**
+	 * Login to the Wiki.
+	 */
+	private void login() {
+		if (!this.mWikiBot.isLoggedIn()) {
+			this.mWikiBot.login(this.mUsername, this.mPassword);
+		}
 	}
 }

@@ -3,11 +3,18 @@ package de.zabuza.rewiki.tasks;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 import de.zabuza.rewiki.exceptions.MaximalInterruptsExceededException;
 import de.zabuza.rewiki.exceptions.UnexpectedIOException;
 
 public final class WikiTaskUtil {
+	private static final String DATE_FORMAT = "dd.MM.yyyy HH:mm";
+	private static final String DATE_PLACEHOLDER = "DATE";
 	private static final int MAX_INTERRUPTS = 5;
 	private static final String SCRIPT_PATH = "res/scripts/";
 	private static final String SCRIPT_PLACEHOLDER = "SCRIPT";
@@ -28,8 +35,8 @@ public final class WikiTaskUtil {
 				throw new UnexpectedIOException(e);
 			}
 
-			StreamFetcher errorStream = new StreamFetcher(process.getErrorStream());
-			StreamFetcher outputStream = new StreamFetcher(process.getInputStream(), fileOutputStream);
+			final StreamFetcher errorStream = new StreamFetcher(process.getErrorStream());
+			final StreamFetcher outputStream = new StreamFetcher(process.getInputStream(), fileOutputStream);
 
 			errorStream.start();
 			outputStream.start();
@@ -63,5 +70,19 @@ public final class WikiTaskUtil {
 
 	public static String getPathToScript(final String script) {
 		return SCRIPT_PATH + script;
+	}
+
+	public static String insertDateTemplateReady(final String text) {
+		final LocalDateTime currentTime = LocalDateTime.now();
+		final String formattedTime = currentTime.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+		return text.replaceAll(DATE_PLACEHOLDER, formattedTime);
+	}
+
+	public static String readContent(final String fileName) throws UnexpectedIOException {
+		try {
+			return Files.lines(Paths.get(fileName)).collect(Collectors.joining("\n"));
+		} catch (final IOException e) {
+			throw new UnexpectedIOException(e);
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package de.zabuza.rewiki;
 
 import java.util.LinkedList;
+
 import de.zabuza.rewiki.settings.SettingsController;
 import de.zabuza.rewiki.tasks.IWikiTask;
 import de.zabuza.rewiki.tasks.map.AreaListTask;
@@ -25,8 +26,11 @@ public final class ReWiki {
 	 *            Not supported
 	 */
 	public static void main(final String[] args) {
+		System.out.println("Initializing...");
+
 		// Fetch the settings
 		final SettingsController settings = new SettingsController();
+		settings.initialize();
 
 		// Create the Wiki hub
 		final WikiHub wiki = new WikiHub(settings.getServerAddress(), settings.getUsername(), settings.getPassword());
@@ -38,13 +42,20 @@ public final class ReWiki {
 		tasks.add(new NpcListTask());
 		tasks.add(new NpcImagesTask());
 
-		tasks.add(new MapListTask());
-		tasks.add(new CoordinateListTask());
-		tasks.add(new LocationListTask());
-		tasks.add(new AreaListTask());
-		tasks.add(new LocateRegionTask());
+		// tasks.add(new MapListTask());
+		// tasks.add(new CoordinateListTask());
+		// tasks.add(new LocationListTask());
+		// tasks.add(new AreaListTask());
+		// tasks.add(new LocateRegionTask());
 
 		// Execute all tasks
-		tasks.stream().sequential().forEach(task -> task.executeCommand());
+		System.out.println("Executing...");
+		int counter = 0;
+		for (final IWikiTask task : tasks) {
+			task.executeCommand();
+
+			counter++;
+			System.out.println("\tFinished (" + counter + "/" + tasks.size() + ")");
+		}
 	}
 }

@@ -5,8 +5,9 @@ import de.zabuza.rewiki.tasks.IWikiTask;
 import de.zabuza.rewiki.tasks.WikiTaskUtil;
 
 public final class FightCalcDataTask implements IWikiTask {
-	private static final String COMMAND = "perl SCRIPT npclist.txt > wikifightcalcdata.txt";
+	private static final String COMMAND = "perl SCRIPT npclist.txt";
 	private static final String SCRIPT = "npclist2fightcalcdata.pl";
+	private static final String TARGET = "wikifightcalcdata.txt";
 
 	/*
 	 * (non-Javadoc)
@@ -15,7 +16,7 @@ public final class FightCalcDataTask implements IWikiTask {
 	 */
 	@Override
 	public void executeCommand() throws UnexpectedIOException {
-		WikiTaskUtil.executeCommand(COMMAND, WikiTaskUtil.getPathToScript(SCRIPT));
+		WikiTaskUtil.executeCommand(COMMAND, TARGET, WikiTaskUtil.getPathToScript(SCRIPT));
 	}
 
 }

@@ -5,8 +5,9 @@ import de.zabuza.rewiki.tasks.IWikiTask;
 import de.zabuza.rewiki.tasks.WikiTaskUtil;
 
 public final class MapListTask implements IWikiTask {
-	private static final String COMMAND = "php SCRIPT > maplist.txt";
+	private static final String COMMAND = "php SCRIPT";
 	private static final String SCRIPT = "maplist.php";
+	private static final String TARGET = "maplist.txt";
 
 	/*
 	 * (non-Javadoc)
@@ -15,7 +16,7 @@ public final class MapListTask implements IWikiTask {
 	 */
 	@Override
 	public void executeCommand() throws UnexpectedIOException {
-		WikiTaskUtil.executeCommand(COMMAND, WikiTaskUtil.getPathToScript(SCRIPT));
+		WikiTaskUtil.executeCommand(COMMAND, TARGET, WikiTaskUtil.getPathToScript(SCRIPT));
 	}
 
 }

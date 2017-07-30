@@ -5,8 +5,9 @@ import de.zabuza.rewiki.tasks.IWikiTask;
 import de.zabuza.rewiki.tasks.WikiTaskUtil;
 
 public final class LocateRegionTask implements IWikiTask {
-	private static final String COMMAND = "php SCRIPT > LocateRegion.txt";
+	private static final String COMMAND = "php SCRIPT";
 	private static final String SCRIPT = "LocateRegion.php";
+	private static final String TARGET = "LocateRegion.txt";
 
 	/*
 	 * (non-Javadoc)
@@ -15,7 +16,7 @@ public final class LocateRegionTask implements IWikiTask {
 	 */
 	@Override
 	public void executeCommand() throws UnexpectedIOException {
-		WikiTaskUtil.executeCommand(COMMAND, WikiTaskUtil.getPathToScript(SCRIPT));
+		WikiTaskUtil.executeCommand(COMMAND, TARGET, WikiTaskUtil.getPathToScript(SCRIPT));
 	}
 
 }

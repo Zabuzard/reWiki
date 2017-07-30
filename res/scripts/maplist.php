@@ -78,8 +78,10 @@ function parse_field_template($wiki_text) {
 
         // keine Koordinaten gesetzt
         if (strcasecmp($passage['Nach'], 'zufall') && !isset($passage['X'], $passage['Y'])) {
-            trigger_error('Keine Koordinatenangabe in Passage von '.
+            /* Warnung deaktiviert - Es gibt einige Passagen in denen das beabsichtigt ist (Buran), solange nicht speziell gefiltert wird stört die Meldung nur
+			trigger_error('Keine Koordinatenangabe in Passage von '.
                           $template['Name'] . ' nach ' . $passage['Nach'], E_USER_WARNING);
+			*/
         } else {
             $field['passages'][] = $passage['X'] . ',' . $passage['Y'];
         }

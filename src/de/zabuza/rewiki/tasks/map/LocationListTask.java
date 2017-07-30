@@ -1,5 +1,7 @@
 package de.zabuza.rewiki.tasks.map;
 
+import java.util.LinkedList;
+
 import de.zabuza.rewiki.WikiHub;
 import de.zabuza.rewiki.exceptions.UnexpectedIOException;
 import de.zabuza.rewiki.tasks.IWikiTask;
@@ -8,7 +10,7 @@ import net.sourceforge.jwbf.core.contentRep.Article;
 
 public final class LocationListTask implements IWikiTask {
 	private static final String ARTICLE = "Orte (Liste)";
-	private static final String COMMAND = "perl SCRIPT";
+	private static final String COMMAND = "perl";
 	private static final String SCRIPT = "loclist.pl";
 	private static final String TARGET = "loclist.txt";
 
@@ -19,7 +21,11 @@ public final class LocationListTask implements IWikiTask {
 	 */
 	@Override
 	public void executeCommand() throws UnexpectedIOException {
-		WikiTaskUtil.executeCommand(COMMAND, TARGET, WikiTaskUtil.getPathToScript(SCRIPT));
+		final LinkedList<String> command = new LinkedList<>();
+		command.add(COMMAND);
+		command.add(WikiTaskUtil.getPathToScript(SCRIPT));
+
+		WikiTaskUtil.executeCommand(command, TARGET);
 	}
 
 	/*

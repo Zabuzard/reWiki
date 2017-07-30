@@ -1,12 +1,14 @@
 package de.zabuza.rewiki.tasks.map;
 
+import java.util.LinkedList;
+
 import de.zabuza.rewiki.WikiHub;
 import de.zabuza.rewiki.exceptions.UnexpectedIOException;
 import de.zabuza.rewiki.tasks.IWikiTask;
 import de.zabuza.rewiki.tasks.WikiTaskUtil;
 
 public final class MapListTask implements IWikiTask {
-	private static final String COMMAND = "php SCRIPT";
+	private static final String COMMAND = "php";
 	private static final String SCRIPT = "maplist.php";
 	private static final String TARGET = "maplist.txt";
 
@@ -17,7 +19,11 @@ public final class MapListTask implements IWikiTask {
 	 */
 	@Override
 	public void executeCommand() throws UnexpectedIOException {
-		WikiTaskUtil.executeCommand(COMMAND, TARGET, WikiTaskUtil.getPathToScript(SCRIPT));
+		final LinkedList<String> command = new LinkedList<>();
+		command.add(COMMAND);
+		command.add(WikiTaskUtil.getPathToScript(SCRIPT));
+
+		WikiTaskUtil.executeCommand(command, TARGET);
 	}
 
 	/*

@@ -1,5 +1,7 @@
 package de.zabuza.rewiki.tasks.map;
 
+import java.util.LinkedList;
+
 import de.zabuza.rewiki.WikiHub;
 import de.zabuza.rewiki.exceptions.UnexpectedIOException;
 import de.zabuza.rewiki.tasks.IWikiTask;
@@ -7,10 +9,11 @@ import de.zabuza.rewiki.tasks.WikiTaskUtil;
 import net.sourceforge.jwbf.core.contentRep.Article;
 
 public final class AreaListTask implements IWikiTask {
+	private static final String ARGUMENT = "-classpath";
 	private static final String ARTICLE = "Gebiete (Liste)";
-	private static final String COMMAND = "javac SCRIPT_UNCOMPILED && java SCRIPT_COMPILED";
-	private static final String SCRIPT_COMPILED = "arealist";
-	private static final String SCRIPT_UNCOMPILED = "arealist.java";
+	private static final String COMMAND = "java";
+	private static final String OUTPUT = "arealist.txt";
+	private static final String SCRIPT = "arealist";
 	private static final String TARGET = "areaListDebugOutput.txt";
 
 	/*
@@ -20,8 +23,12 @@ public final class AreaListTask implements IWikiTask {
 	 */
 	@Override
 	public void executeCommand() throws UnexpectedIOException {
-		final String command = COMMAND.replaceAll("SCRIPT_UNCOMPILED", WikiTaskUtil.getPathToScript(SCRIPT_UNCOMPILED))
-				.replaceAll("SCRIPT_COMPILED", WikiTaskUtil.getPathToScript(SCRIPT_COMPILED));
+		final LinkedList<String> command = new LinkedList<>();
+		command.add(COMMAND);
+		command.add(ARGUMENT);
+		command.add(WikiTaskUtil.getPathToScript(""));
+		command.add(SCRIPT);
+
 		WikiTaskUtil.executeCommand(command, TARGET);
 	}
 
@@ -33,7 +40,7 @@ public final class AreaListTask implements IWikiTask {
 	 */
 	@Override
 	public void pushToWiki(final WikiHub wiki) throws UnexpectedIOException {
-		final String resultingContent = WikiTaskUtil.readContent(TARGET);
+		final String resultingContent = WikiTaskUtil.readContent(OUTPUT);
 
 		// Save the resulting content to the article
 		final Article article = wiki.getArticle(ARTICLE);

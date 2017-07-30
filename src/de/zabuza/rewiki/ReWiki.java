@@ -39,17 +39,13 @@ public final class ReWiki {
 		final LinkedList<IWikiTask> tasks = new LinkedList<>();
 		tasks.add(new NpcListDataTask());
 		tasks.add(new FightCalcDataTask());
-		// tasks.add(new NpcListTask());
-		// tasks.add(new NpcImagesTask());
-		//
-		// tasks.add(new MapListTask());
-		// tasks.add(new CoordinateListTask());
-		// tasks.add(new LocationListTask());
-		// tasks.add(new AreaListTask());
-		// tasks.add(new LocateRegionTask());
+		tasks.add(new NpcListTask());
+		tasks.add(new NpcImagesTask());
 
-		// TODO The area task must be executed after coordinate list was
-		// executed and pushed to the wiki
+		tasks.add(new MapListTask());
+		tasks.add(new CoordinateListTask());
+		// TODO Temporarily disabled because it needs to long
+		// tasks.add(new LocationListTask());
 
 		// Execute all tasks
 		System.out.println("Executing...");
@@ -65,11 +61,40 @@ public final class ReWiki {
 		System.out.println("Pushing results...");
 		counter = 0;
 		for (final IWikiTask task : tasks) {
-			// TODO Temporarily disabled
 			// task.pushToWiki(wiki);
 
 			counter++;
 			System.out.println("\tFinished (" + counter + "/" + tasks.size() + ")");
 		}
+
+		// Handling dependent tasks
+		final LinkedList<IWikiTask> dependentTasks = new LinkedList<>();
+		dependentTasks.add(new AreaListTask());
+		dependentTasks.add(new LocateRegionTask());
+
+		// Execute all tasks
+		System.out.println("Executing dependent tasks...");
+		counter = 0;
+		for (final IWikiTask dependentTask : dependentTasks) {
+			dependentTask.executeCommand();
+
+			counter++;
+			System.out.println("\tFinished (" + counter + "/" + dependentTasks.size() + ")");
+		}
+
+		// Push all task results to the wiki
+		System.out.println("Pushing results of dependent tasks...");
+		counter = 0;
+		for (final IWikiTask dependentTask : dependentTasks) {
+			// TODO Remove temporarily hack
+			if (dependentTask instanceof LocateRegionTask) {
+				dependentTask.pushToWiki(wiki);
+			}
+
+			counter++;
+			System.out.println("\tFinished (" + counter + "/" + dependentTasks.size() + ")");
+		}
+
+		System.out.println("Terminated.");
 	}
 }

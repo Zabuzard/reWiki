@@ -1,5 +1,7 @@
 package de.zabuza.rewiki.tasks.npc;
 
+import java.util.LinkedList;
+
 import de.zabuza.rewiki.WikiHub;
 import de.zabuza.rewiki.exceptions.UnexpectedIOException;
 import de.zabuza.rewiki.tasks.IWikiTask;
@@ -8,7 +10,8 @@ import net.sourceforge.jwbf.core.contentRep.Article;
 
 public final class NpcListTask implements IWikiTask {
 	private static final String ARTICLE = "NPCs (Liste)";
-	private static final String COMMAND = "perl SCRIPT npclist.txt";
+	private static final String COMMAND = "perl";
+	private static final String INPUT = "npclist.txt";
 	private static final String SCRIPT = "npclist2wiki.pl";
 	private static final String TARGET = "wikinpclist.txt";
 
@@ -19,7 +22,12 @@ public final class NpcListTask implements IWikiTask {
 	 */
 	@Override
 	public void executeCommand() throws UnexpectedIOException {
-		WikiTaskUtil.executeCommand(COMMAND, TARGET, WikiTaskUtil.getPathToScript(SCRIPT));
+		final LinkedList<String> command = new LinkedList<>();
+		command.add(COMMAND);
+		command.add(WikiTaskUtil.getPathToScript(SCRIPT));
+		command.add(INPUT);
+
+		WikiTaskUtil.executeCommand(command, TARGET);
 	}
 
 	/*

@@ -1,12 +1,12 @@
 package de.zabuza.rewiki;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import de.zabuza.rewiki.settings.SettingsController;
 import de.zabuza.rewiki.tasks.IWikiTask;
 import de.zabuza.rewiki.tasks.map.AreaListTask;
 import de.zabuza.rewiki.tasks.map.CoordinateListTask;
-import de.zabuza.rewiki.tasks.map.LocateRegionTask;
 import de.zabuza.rewiki.tasks.map.LocationListTask;
 import de.zabuza.rewiki.tasks.map.MapListTask;
 import de.zabuza.rewiki.tasks.npc.FightCalcDataTask;
@@ -44,11 +44,29 @@ public final class ReWiki {
 
 		tasks.add(new MapListTask());
 		tasks.add(new CoordinateListTask());
-		// TODO Temporarily disabled because it needs to long
-		// tasks.add(new LocationListTask());
+		tasks.add(new LocationListTask());
 
+		// Execute them and push results
+		executeTasks(tasks, "");
+		pushingTasksResults(tasks, wiki, "");
+
+		// Handle dependent tasks
+		final LinkedList<IWikiTask> dependentTasks = new LinkedList<>();
+		dependentTasks.add(new AreaListTask());
+		// TODO Temporarily disabled because it contains bugs that are not
+		// likely to be fixed in the near future
+		// dependentTasks.add(new LocateRegionTask());
+
+		// Execute them and push results
+		executeTasks(dependentTasks, "dependent ");
+		pushingTasksResults(dependentTasks, wiki, "dependent ");
+
+		System.out.println("Terminated.");
+	}
+
+	private static void executeTasks(final List<IWikiTask> tasks, final String loggingAdjective) {
 		// Execute all tasks
-		System.out.println("Executing...");
+		System.out.println("Executing " + loggingAdjective + "tasks...");
 		int counter = 0;
 		for (final IWikiTask task : tasks) {
 			task.executeCommand();
@@ -56,45 +74,18 @@ public final class ReWiki {
 			counter++;
 			System.out.println("\tFinished (" + counter + "/" + tasks.size() + ")");
 		}
+	}
 
+	private static void pushingTasksResults(final List<IWikiTask> tasks, final WikiHub wiki,
+			final String loggingAdjective) {
 		// Push all task results to the wiki
-		System.out.println("Pushing results...");
-		counter = 0;
+		System.out.println("Pushing " + loggingAdjective + "results...");
+		int counter = 0;
 		for (final IWikiTask task : tasks) {
-			// task.pushToWiki(wiki);
+			task.pushToWiki(wiki);
 
 			counter++;
 			System.out.println("\tFinished (" + counter + "/" + tasks.size() + ")");
 		}
-
-		// Handling dependent tasks
-		final LinkedList<IWikiTask> dependentTasks = new LinkedList<>();
-		dependentTasks.add(new AreaListTask());
-		dependentTasks.add(new LocateRegionTask());
-
-		// Execute all tasks
-		System.out.println("Executing dependent tasks...");
-		counter = 0;
-		for (final IWikiTask dependentTask : dependentTasks) {
-			dependentTask.executeCommand();
-
-			counter++;
-			System.out.println("\tFinished (" + counter + "/" + dependentTasks.size() + ")");
-		}
-
-		// Push all task results to the wiki
-		System.out.println("Pushing results of dependent tasks...");
-		counter = 0;
-		for (final IWikiTask dependentTask : dependentTasks) {
-			// TODO Remove temporarily hack
-			if (dependentTask instanceof LocateRegionTask) {
-				dependentTask.pushToWiki(wiki);
-			}
-
-			counter++;
-			System.out.println("\tFinished (" + counter + "/" + dependentTasks.size() + ")");
-		}
-
-		System.out.println("Terminated.");
 	}
 }

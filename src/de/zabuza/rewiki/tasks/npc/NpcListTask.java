@@ -8,11 +8,33 @@ import de.zabuza.rewiki.tasks.IWikiTask;
 import de.zabuza.rewiki.tasks.WikiTaskUtil;
 import net.sourceforge.jwbf.core.contentRep.Article;
 
+/**
+ * Task that calls a script which creates the article <tt>NPCs (Liste)</tt> from
+ * the results of {@link NpcListDataTask}.
+ * 
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
+ *
+ */
 public final class NpcListTask implements IWikiTask {
+	/**
+	 * The article to push the results to.
+	 */
 	private static final String ARTICLE = "NPCs (Liste)";
+	/**
+	 * The command to use.
+	 */
 	private static final String COMMAND = "perl";
+	/**
+	 * The file containing the intermediate results of {@link NpcListDataTask}.
+	 */
 	private static final String INPUT = "npclist.txt";
+	/**
+	 * The name of the script to execute.
+	 */
 	private static final String SCRIPT = "npclist2wiki.pl";
+	/**
+	 * The file to redirect the produced standard output of the script to.
+	 */
 	private static final String TARGET = "wikinpclist.txt";
 
 	/*

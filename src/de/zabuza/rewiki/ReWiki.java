@@ -15,12 +15,16 @@ import de.zabuza.rewiki.tasks.npc.NpcListDataTask;
 import de.zabuza.rewiki.tasks.npc.NpcListTask;
 
 /**
+ * Tool that updates several commonly used data page of the
+ * <tt>FreewarWiki</tt>.
  * 
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class ReWiki {
 	/**
+	 * Executes the tool and by that updates several commonly used data page of
+	 * the <tt>FreewarWiki</tt>.
 	 * 
 	 * @param args
 	 *            Not supported
@@ -64,6 +68,15 @@ public final class ReWiki {
 		System.out.println("Terminated.");
 	}
 
+	/**
+	 * Executes all given tasks and prints debugging information.
+	 * 
+	 * @param tasks
+	 *            The tasks to execute
+	 * @param loggingAdjective
+	 *            Adjective that can be used to describe the tasks in logging
+	 *            messages
+	 */
 	private static void executeTasks(final List<IWikiTask> tasks, final String loggingAdjective) {
 		// Execute all tasks
 		System.out.println("Executing " + loggingAdjective + "tasks...");
@@ -76,6 +89,18 @@ public final class ReWiki {
 		}
 	}
 
+	/**
+	 * Pushes the results of the given tasks to the given wiki and prints
+	 * debugging information.
+	 * 
+	 * @param tasks
+	 *            The tasks to push results of
+	 * @param wiki
+	 *            The wiki to push the results to
+	 * @param loggingAdjective
+	 *            Adjective that can be used to describe the tasks in logging
+	 *            messages
+	 */
 	private static void pushingTasksResults(final List<IWikiTask> tasks, final WikiHub wiki,
 			final String loggingAdjective) {
 		// Push all task results to the wiki
@@ -87,5 +112,12 @@ public final class ReWiki {
 			counter++;
 			System.out.println("\tFinished (" + counter + "/" + tasks.size() + ")");
 		}
+	}
+
+	/**
+	 * Utility class. No implementation.
+	 */
+	private ReWiki() {
+
 	}
 }

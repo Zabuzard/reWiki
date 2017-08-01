@@ -8,10 +8,29 @@ import de.zabuza.rewiki.tasks.IWikiTask;
 import de.zabuza.rewiki.tasks.WikiTaskUtil;
 import net.sourceforge.jwbf.core.contentRep.Article;
 
+/**
+ * Task that calls a script which creates the article
+ * <tt>Koordinaten (Liste)</tt> from the results of {@link MapListTask}.
+ * 
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
+ *
+ */
 public final class CoordinateListTask implements IWikiTask {
+	/**
+	 * The article to push the results to.
+	 */
 	private static final String ARTICLE = "Koordinaten (Liste)";
+	/**
+	 * The command to use.
+	 */
 	private static final String COMMAND = "php";
+	/**
+	 * The name of the script to execute.
+	 */
 	private static final String SCRIPT = "maplist2wiki.php";
+	/**
+	 * The file to redirect the produced standard output of the script to.
+	 */
 	private static final String TARGET = "wikimaplist.txt";
 
 	/*

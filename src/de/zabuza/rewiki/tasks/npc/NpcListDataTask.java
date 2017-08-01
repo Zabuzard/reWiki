@@ -7,9 +7,25 @@ import de.zabuza.rewiki.exceptions.UnexpectedIOException;
 import de.zabuza.rewiki.tasks.IWikiTask;
 import de.zabuza.rewiki.tasks.WikiTaskUtil;
 
+/**
+ * Task that calls a script which creates intermediate NPC results that are
+ * later used by other tasks.
+ * 
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
+ *
+ */
 public final class NpcListDataTask implements IWikiTask {
+	/**
+	 * The command to use.
+	 */
 	private static final String COMMAND = "php";
+	/**
+	 * The name of the script to execute.
+	 */
 	private static final String SCRIPT = "npclist.php";
+	/**
+	 * The file to redirect the produced standard output of the script to.
+	 */
 	private static final String TARGET = "npclist.txt";
 
 	/*

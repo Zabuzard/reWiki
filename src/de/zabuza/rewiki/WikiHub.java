@@ -3,6 +3,13 @@ package de.zabuza.rewiki;
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 
+/**
+ * Hub that is used to connect with the <tt>FreewarWiki</tt> in order to publish
+ * results.
+ * 
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
+ *
+ */
 public final class WikiHub {
 	/**
 	 * The password of the user to post with.

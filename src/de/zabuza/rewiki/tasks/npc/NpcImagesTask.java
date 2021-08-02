@@ -31,7 +31,7 @@ public final class NpcImagesTask implements IWikiTask {
 	/**
 	 * Text that is prepended to the generated content.
 	 */
-	private static final String PRE_ARTICLE = "{{BotUpdate|Datum=DATE}}\nDiese Tabelle enthält alle [[NPC]]-Bilder, die dazugehörigen NPCs und die Autoren der Bilder.\n";
+	private static final String PRE_ARTICLE = "{{BotUpdate|Datum=DATE}}\nDiese Tabelle enthÃ¤lt alle [[NPC]]-Bilder, die dazugehÃ¶rigen NPCs und die Autoren der Bilder.\n";
 	/**
 	 * The name of the script to execute.
 	 */

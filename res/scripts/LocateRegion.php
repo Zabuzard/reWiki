@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+ini_set("display_errors", "0");
 $json = json_decode(file_get_contents("http://www.fwwiki.de/api.php?action=query&prop=info|revisions&titles=Koordinaten%20(Liste)&rvprop=content&format=json"), true);
 $page = current($json['query']['pages']);
 

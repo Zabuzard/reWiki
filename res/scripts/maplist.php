@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: text/plain; charset=utf-8;');
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(0);
+ini_set("display_errors", "0");
 
 define('TEMPLATE_GET_KEY',   1);
 define('TEMPLATE_GET_VALUE', 2);

@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+ini_set("display_errors", "0");
 $date = date("d.m.Y");  
 
 echo "Einige Zauber und Funktionen in Freewar verraten die aktuelle Position eines Charakters in Form von Koordinaten. Gerade bei Feldern, die nicht zur oberirdischen Hauptlandmasse von Freewar gehören, ist es oft schwer, herauszufinden, zu welchem Gebiet diese Koordinaten gehören.<br />Die folgende Liste hilft dabei. Alle Koordinaten sind in der Form '''X''','''Y''' unter dem Namen des Gebiets gelistet, zu dem sie gehören. So kann mit der Suchfunktion des Browsers leicht das Gebiet zu einer bestimmten Position ermittelt werden.<br />Die Liste ist automatisch aus den Wiki-Kartendaten erstellt (Stand ".$date.") und wird evtl. bei Kartenänderungen oder Fehlern auch automatisch wieder neu generiert; Änderungen an der Liste sind nicht sinnvoll. Stattdessen, wenn etwas auffällt, bitte auf der Diskussionsseite vermerken.<br />";
